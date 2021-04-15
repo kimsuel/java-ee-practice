@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="first" class="second" 
+style="border:3px dotted orange; width:50%; height:100px;">
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//순서대로 처리 id -> class
+	/* $('#first').click(function(){
+		alert('id 먼저 바인딩');
+	});
+	$('.second').click(function(){
+		alert('class 먼저 바인딩');
+	}); */
+	
+	//순서대로 처리 class -> id
+	$('.second').click(function(){
+		alert('class 먼저 바인딩');
+	});
+	$('#first').click(function(){
+		alert('id 먼저 바인딩');
+	});
+	// id를 먼저 쓰면 id가 먼저 처리, class를 먼저 쓰면 class를 먼저 처리
+	// 쓴 순서에 따라서 처리가 됨 ( 내가 설정한 것(first, second)과 상관없이 )
+});
+</script>
+</body>
+</html>

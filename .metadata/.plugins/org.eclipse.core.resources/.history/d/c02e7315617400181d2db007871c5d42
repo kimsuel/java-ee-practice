@@ -1,0 +1,29 @@
+package guestbook.action;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import guestbook.dao.GuestbookDAO;
+
+@WebServlet("/GuestbookListServlet")
+public class GuestbookListServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
+		
+		ArrayList<String> list = guestbookDAO.list();
+		String name = list.get(0).toString();
+		String logtime = list.get(1).toString();
+		String email = list.get(2).toString();
+		String homepage = list.get(3).toString();
+		String subject = list.get(4).toString();
+		String content = list.get(5).toString();
+		
+	}
+
+}

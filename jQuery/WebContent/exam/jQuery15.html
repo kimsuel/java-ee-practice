@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.redColor{
+	color:red;
+}
+</style>
+</head>
+<body>
+<div id="mainMenu">
+	<div id="naver" class="redColor">네이버</div>
+	<div id="hong" class="redColor">홍길동 블로그</div>
+	<div id="google" class="redColor">구글</div>
+</div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//네이버를 클릭했을 때 div 태그의 3개 요소 class속성을 해제
+	$('#naver').bind('click',function(){
+		$('#mainMenu .redColor').removeClass('redColor');
+		
+		//#naver만 다시 클래스 속성 부여
+		$(this).addClass('redColor');
+	});
+	
+	//항목을 클릭하면 alert()로 문자열 출력하고 글자색도 빨간색, 나머지는 검정색
+	$('#mainMenu div').click(function(){
+		alert($(this).text());
+		$('#mainMenu .redColor').removeClass('redColor');
+		$(this).addClass('redColor');
+	});
+	
+});
+</script>
+</body>
+</html>

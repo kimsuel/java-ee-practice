@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="boardSQL">
+ 	<!-- 글쓰기 -->
+	<insert id="boardWrite" parameterType="map" >
+		insert into board(seq
+		                 ,id
+		                 ,name
+		                 ,email
+		                 ,subject
+		                 ,content
+		                 ,ref)  <!-- 원글 : 그룹번호 = 글번호(seq) -->
+		values(seq_board.nextval
+			, #{id}
+			, #{name}
+			, #{email}
+			, #{subject}
+			, #{content}
+			, seq_board.currval)
+	</insert>
+	
+	<!-- 글목록 -->
+	<select id="boardList" parameterType="map" resultType="board">
+		<!-- select * from (select rownum rn, tt.* from (
+		select * from board order by ref desc, step asc)tt
+		) where rn between #{startNum} and #{endNum} -->
+		
+		select * from (select rownum rn, tt.* from (
+		select * from board order by ref desc, step asc)tt
+		) where rn <![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
+					<!-- <![CDATA[형식]]> : []안에 있는 형식 그대로 인식하게 해주는 것 -->
+	</select>
+	
+	<!-- 총 글 수 -->
+	<select id="getBoardTotalA" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<!-- 글보기 -->
+	<select id="boardView" resultType="board" parameterType="int">
+		select * from board where seq=#{seq}
+	</select>
+	
+	<!-- 글수정 -->
+	<update id="boardModify" parameterType="board">
+		update board set subject=#{subject}
+		               , content=#{content} where seq=#{seq}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="hitUpdate" parameterType="int">
+		update board set hit=hit+1 where seq=#{seq}
+	</update>
+	
+	<!-- 답글 -->
+	<update id="boardReply1" parameterType="board">
+		update board set step=step+1 where ref=#{ref} and step > #{step}
+	</update>
+	
+	<insert id="boardReply2" parameterType="map" >
+		insert into board values(seq_board.nextval
+							  , #{id}
+							  , #{name}
+							  , #{email}
+							  , #{subject}
+							  , #{content}
+							  , #{ref}
+							  , #{lev}
+							  , #{step}
+							  , #{pseq}
+							  , 0
+							  , 0
+							  , sysdate)
+		<!-- 원글 : 그룹번호 = 글번호(seq) -->
+	</insert>
+	
+	<update id="boardReply3" parameterType="board">
+		update board set reply = reply + 1 where seq = #{seq}
+	</update>
+	
+	<!-- 글삭제 -->
+	<!-- <update id="boardDelete1" parameterType="map">
+		update board set reply = reply - 1 where seq = #{pseq}
+	</update> -->
+	<delete id="boardDelete" parameterType="int">
+	begin
+		update board set reply = reply - 1 where 
+			seq=(select pseq from board where seq=#{seq});
+			
+		update board set subject='[원글이 삭제된 답글]'||subject 
+		where pseq=#{seq};
+		
+		delete board where seq=#{seq};
+	end;
+	</delete>
+	
+	<!-- 글 찾기 -->
+	<select id="search" parameterType="map" resultType="board">
+		select * from (select rownum rn, tt.* from (
+		select * from board where ${columnName} like '%'||#{value}||'%' 
+		                    order by ref desc, step asc)tt
+		) where rn <![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
+	</select>
+	
+	<select id="searchTotalA" parameterType="map" resultType="int">
+		select count(*) from board where ${columnName} like '%'||#{value}||'%' 
+	</select>
+</mapper>
+
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id="testButton">클릭!!!</button>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#testButton').click(function(){
+		$.getJSON('jQueryAjax05_jsonData.txt',function(data){
+			//alert(data);
+			
+			$.each(data,function(index,value){
+				//alert(index+", "+value);
+				//alert(index+", "+value.name+", "+value.addr);
+				
+				$.each(value,function(key,val){
+					alert(index+", "+key+", "+val);
+				});
+			});
+		});
+	});
+});
+</script>
+</body>
+</html>

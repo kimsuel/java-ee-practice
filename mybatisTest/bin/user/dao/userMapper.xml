@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="userSQL">
+ 	<resultMap type="user" id="userResult">
+ 		<result property="name" column="NAME"/>
+ 		<result property="id" column="ID"/>
+ 		<result property="pwd" column="PWD"/>
+ 	</resultMap>
+ 
+ 	<insert id="write" parameterType="user">
+		insert into usertable values(#{name},#{id},#{pwd})
+	</insert> 
+	
+<!-- 	<select id="getUserList" resultType="user">
+		select * from usertable
+	</select> -->
+	
+	<select id="getUserList" resultMap="userResult">
+		select * from usertable
+	</select>
+	
+	<select id="check" resultType="user" parameterType="String">
+		select * from usertable where id=#{id}
+	</select>
+	
+<!--<update id="update" parameterType="user.bean.UserDTO">
+		update usertable set name=#{name}, pwd=#{pwd} where id=#{id}
+	</update> -->
+	
+	<update id="update" parameterType="java.util.Map">
+		update usertable set name=#{name}, pwd=#{pwd} where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from usertable where id=#{id}
+	</delete>
+	
+	<select id="search" parameterType="java.util.Map" resultType="user">
+		select * from usertable where ${columnName} like '%'||#{value}||'%'
+	                                 <!-- $ : 있는 그대로로 인식 -->
+	</select>
+</mapper>
+
+

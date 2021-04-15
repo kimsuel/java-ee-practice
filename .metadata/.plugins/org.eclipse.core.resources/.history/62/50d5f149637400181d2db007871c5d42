@@ -1,0 +1,68 @@
+package guestbook.action;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import guestbook.dao.GuestbookDAO;
+
+@WebServlet("/GuestbookListServlet")
+public class GuestbookListServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
+
+		ArrayList<String> list = guestbookDAO.list();
+		String name = list.get(0).toString();
+		String logtime = list.get(1).toString();
+		String email = list.get(2).toString();
+		String homepage = list.get(3).toString();
+		String subject = list.get(4).toString();
+		String content = list.get(5).toString();
+
+		// 응답
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>글목록</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<table border=1 cellpadding=5 cellspacing=0 >");
+		out.println("<tr>");
+		out.println("<td width=90 align=center>작성자</td>");
+		out.println("<td>");
+		out.println(name);
+		out.println("</td>");
+		out.println("<td width=90 align=center>작성일</td>");
+		out.println("<td>");
+		out.println(logtime);
+		out.println("</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<td align=center>이메일</td>");
+		out.println("<td colspan=3>");
+		out.println(email);
+		out.println("</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<td align=center>홈페이지</td>");
+		out.println("<td colspan=3>");
+		out.println(homepage);
+		out.println("</td>");
+		out.println("</tr>");
+		
+		
+		out.println("</table>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+}

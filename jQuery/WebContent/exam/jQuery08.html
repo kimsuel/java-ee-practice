@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<select id="animal">
+	<option>lion</option>
+	<option>bear</option>
+	<option>elephant</option>
+	<option>giraffe</option>
+	<option>tiger</option>
+</select>
+<select onchange="go()">
+	<option>apple</option>
+	<option>orange</option>
+	<option>strawberry</option>
+	<option>melon</option>
+	<option>kiwi</option>
+</select>
+<br><br>
+<div id="output"></div>
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#animal').change(function(){
+		var value = $('select#animal > option:selected').val();
+		/* select만 쓰면 앞에 있는 select를 인식 select#animal이라고 써야함 */
+		$('#output').text(value+"를 선택").css('color','blue');
+	});
+});
+</script>
+<script>
+function go(){ 
+	var value = $('select:eq(1) > option:selected').val();
+	            /* 상위태그 >  하위태그 (자식만)  : 선택된 값을 가져와라 
+	                단, 이렇게 쓰면 맨 앞에 있는 select를 가져옴
+	             eq(index값)을 쓰면 순서를 찾음
+	            */
+	$('#output').text(value+"를 선택").css('color','red');
+}
+</script>
+<!-- 
+자손(자식) 선택자
+상위태그 > 하위태그 ( 자식 태그에게만 먹게 할 때는 > 사용)
+
+후손
+상위태그  하위태그 (내 아래 모든 태그에게 먹게 할 때는 그냥 사용)
+ -->
+</html>

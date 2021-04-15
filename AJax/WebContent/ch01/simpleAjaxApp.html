@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="button" value="simple.jsp" onclick="load('simple.jsp')">
+                                                   <!-- ' ' : 문자로 인식 -->
+</body>
+<script>
+var httpRequest = null; // 전역변수
+function load(url) {
+	httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = viewMessage;
+	       // 응답이 온다면 viewMessage를 호출해라 (viewMessage : callback함수)
+	httpRequest.open("GET", url, true);
+	httpRequest.send(null);
+	             // 넘길 데이터 없음
+}
+
+function viewMessage(){
+	if(httpRequest.readyState == 4){
+		if(httpRequest.status == 200){
+			//alert(httpRequest.responseText);
+			console.log(httpRequest.responseText);
+		}else{
+			alert("실패 : "+httpRequest.status);
+		}
+	}
+}
+</script>
+</html>

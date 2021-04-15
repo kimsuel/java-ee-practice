@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+body {
+	margin:0px;
+	padding:0px;
+}
+.jbTitle{
+	text-align:center;
+}
+.jbMenu{
+	text-align:center;
+	background-color:yellow;
+	padding: 10px 0px; /* 2개일 경우 : top/bottom:10px left/right:0px */
+	width:100%;
+}
+.jbContent{
+	height:2000px;
+}
+.jbFixed{ /* 고정해두었기 때문에 site Title이 이 상태에서는 안 보임 */
+	position:fixed;
+	top:0px;
+}
+</style>
+</head>
+<body>
+<div class="jbTitle">
+	<h1>Site Title</h1>
+</div>
+<div class="jbMenu jbFixed">
+	<p>
+		First Menu
+		Second Menu
+		Third Menu
+		Fourth Menu
+	</p>
+</div>
+가나다<br>
+123<br>
+ABC<br>
+<div class="jbContent">
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var jboffset = $('.jbMenu').offset();
+	//alert(jboffset.top+", "+jboffset.left);
+	$(window).scroll(function(){ //화면의 스크롤을 눌렀을 때
+		//alert($(document).scrollTop())
+		// $(document).scrollTop() : 스크롤을 내리면 계속 숫자가 커짐
+		if($(document).scrollTop() > jboffset.top)
+			$('.jbMenu').addClass('jbFixed');
+		else
+			$('.jbMenu').removeClass('jbFixed');
+	});
+});
+</script>
+</body>
+</html>

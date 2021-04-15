@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+#button{
+	margin:0; /* 0 0 0 0 일 때 그냥 0 하나만 써도 가능 */
+	background:#ccc;
+	padding:10px; /* 10px 10px 10px 10px 일때 한 번만 사용 */
+	cursor:pointer;
+}
+#info{
+	background:skyblue;
+	overflow:hidden; /* 넘치면 숨겨라 */
+	padding:10px;
+	margin:0;
+	height :150px;
+}
+#info p{
+	font-size:15px;
+	color:#fff;
+}
+</style>
+</head>
+<body>
+<h1 id="button">button</h1>
+<div id="info">
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+	<p>button을 클릭하면 info부분을 보여줍니다.. 보여주는 방식은 slideToggle()입니다</p>
+</div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#info').hide();
+	$('#button').click(function(){
+		$('#info').slideToggle();
+	});
+});
+</script>
+</body>
+</html>

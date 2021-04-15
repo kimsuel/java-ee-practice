@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#subjectA:link {color:white; text-decoration:none;}
+#subjectA:visited {color:white; text-decoration:none;}
+#subjectA:hover {color:green; text-decoration:underline; font-weight:bold;}
+#subjectA:active {color:orange; text-decoration:none;}
+
+#currentPaging {
+	color : red;
+	cursor : pointer;
+}
+
+#paging {
+	color : white;
+	text-decoration : none;
+	cursor : pointer;
+}

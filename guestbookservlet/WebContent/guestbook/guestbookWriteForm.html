@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글쓰기</title>
+<script type="text/javascript">
+	function check() {
+		if (document.guestbookWriteForm.subject.value == "") 
+			alert("제목을 입력하세요")
+		else if (document.guestbookWriteForm.content.value == "") 
+			alert("내용을 입력하세요")
+		else document.guestbookWriteForm.submit() 
+	}
+	
+</script>
+</head>
+<body>
+	<h2>글쓰기</h2>
+	<form name="guestbookWriteForm" method="post" action="/guestbookservlet/GuestbookWriteServlet">
+		<table border="1" cellpadding="5" cellspacing="0">
+			<tr>
+				<td width="70" align="center">작성자</td>
+				<td><input type="text" name="name" placeholder="작성자 입력"></td>
+			</tr>
+			<tr>
+				<td align="center">이메일</td>
+				<td><input type="text" name="email" style="width:200px" placeholder="이메일입력"></td>
+			</tr>
+			<tr>
+				<td align="center">홈페이지</td>
+				<td><input type="text" name="homepage" style="width: 250px" value="http://"></td>
+			</tr>
+			<tr>
+				<td align="center">제목</td>
+				<td><input type="text" style="width: 300px" name="subject" placeholder="제목입력"></td>
+			</tr>
+			<tr>
+				<td align="center">내용</td>
+				<td><textarea cols="40" rows="10" name="content" placeholder="내용을 입력하세요"></textarea></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="center"><input type="button" value="글작성" onclick="check()">
+								<input type="reset" value="다시작성">
+								<input type="button" value="글목록" 
+										onclick="location.href='/guestbookservlet/list?pg=1'"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
